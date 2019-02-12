@@ -11,6 +11,8 @@
 		ACF7BE7A1C8D8AD7003E8983 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF7BE791C8D8AD7003E8983 /* AppDelegate.swift */; };
 		ACF7BE811C8D8AD7003E8983 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACF7BE801C8D8AD7003E8983 /* Assets.xcassets */; };
 		ACF7BE841C8D8AD7003E8983 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACF7BE821C8D8AD7003E8983 /* LaunchScreen.storyboard */; };
+		D05571DF2212E3CA00A6B3B6 /* Custom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05571DE2212E3CA00A6B3B6 /* Custom.storyboard */; };
+		D05571E12212E3DF00A6B3B6 /* threadsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05571E02212E3DF00A6B3B6 /* threadsVC.swift */; };
 		E0B40CBFF82242CA7A068C9B /* Pods_ChatSDKSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49984E496C1AAC43FD13FB54 /* Pods_ChatSDKSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,8 @@
 		ACF7BE851C8D8AD7003E8983 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACF7BEAC1C8EEA4F003E8983 /* ChatSDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChatSDK-Bridging-Header.h"; sourceTree = "<group>"; };
 		B52556CB1FB1ED4E0035F796 /* ChatSDKSwift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatSDKSwift.entitlements; sourceTree = "<group>"; };
+		D05571DE2212E3CA00A6B3B6 /* Custom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Custom.storyboard; sourceTree = "<group>"; };
+		D05571E02212E3DF00A6B3B6 /* threadsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = threadsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 				ACF7BE821C8D8AD7003E8983 /* LaunchScreen.storyboard */,
 				ACF7BE851C8D8AD7003E8983 /* Info.plist */,
 				ACF7BEAC1C8EEA4F003E8983 /* ChatSDK-Bridging-Header.h */,
+				D05571DE2212E3CA00A6B3B6 /* Custom.storyboard */,
+				D05571E02212E3DF00A6B3B6 /* threadsVC.swift */,
 			);
 			path = ChatSDKSwift;
 			sourceTree = "<group>";
@@ -161,6 +167,7 @@
 				ACF7BE841C8D8AD7003E8983 /* LaunchScreen.storyboard in Resources */,
 				AC11A8831D5B128400EBFDFD /* GoogleService-Info.plist in Resources */,
 				ACF7BE811C8D8AD7003E8983 /* Assets.xcassets in Resources */,
+				D05571DF2212E3CA00A6B3B6 /* Custom.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D05571E12212E3DF00A6B3B6 /* threadsVC.swift in Sources */,
 				ACF7BE7A1C8D8AD7003E8983 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
