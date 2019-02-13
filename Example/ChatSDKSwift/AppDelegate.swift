@@ -27,15 +27,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         config.clearDatabaseWhenDataVersionChanges = true
         config.clearDataWhenRootPathChanges = true;
         config.databaseVersion = "2"
-        
+
         BChatSDK.initialize(config, app: application, options: launchOptions)
-        BChatSDK.shared()?.interfaceManager = CustomAdapter()
         NM.moderation().on()
+
+        let block = BChatSDK.auth()?.authenticateWithCachedToken()?.thenOnMain
         
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.rootViewController = BChatSDK.ui()?.privateThreadsViewController()
-        //publicThreadsViewController()
-//        window?.makeKeyAndVisible()
+        _ = block?({(result: Any?) -> Any? in
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.rootViewController = BChatSDK.ui()?.privateThreadsViewController()
+            self.window?.makeKeyAndVisible()
+            
+            return result
+        }, {(error: Error?) -> Any? in
+            
+            print(error)
+            
+            return error
+        })
+
+        BChatSDK.shared()?.interfaceManager = CustomAdapter()
+        
+   
+        
+
+        
+      
         return true
     }
 

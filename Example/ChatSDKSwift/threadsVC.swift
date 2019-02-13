@@ -23,101 +23,18 @@ class threadsVC:BPrivateThreadsViewController
     var notificationList = BNotificationObserverList()
     var internetConnectionHook = BHook()
     var _editButton:UIBarButtonItem!
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        threads = []
-        _threadTypingMessages = [:]
-        notificationList = BNotificationObserverList()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(nibName: nil, bundle: nil)
-    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        view.addSubview(tableView)
-        tableView.register(UINib(nibName: "BThreadCell", bundle: Bundle.ui()), forCellReuseIdentifier: "bCellIdentifier")
-        
+        threads = [] 
     }
-    
-    func addObservers() {
-        removeObservers()
-        
-        let nc = NotificationCenter.default
-
-        notificationList.add(nc.addObserver(forName: NSNotification.Name(rawValue: bNotificationMessageAdded), object: nil, queue: nil, using: {
-            [weak self] notification in
-            
-            DispatchQueue.main.async(execute: {
-                [weak self] in
-                
-                let messageModel = notification.userInfo?[bNotificationMessageAddedKeyMessage] as? PMessage
-                messageModel?.setDelivered(NSNumber(value: true))
-                
-                // This makes the phone vibrate when we get a new message
-                
-                // Only vibrate if a message is received from a private thread
-                if messageModel?.thread().type().intValue ?? 0 & Int(bThreadFilterPrivate.rawValue) != 0 {
-                    if let thread = messageModel?.thread()
-                    {
-                        if !(messageModel?.userModel()?.isMe() ?? false) ,
-                            (BChatSDK.currentUser()?.threads() as! [PThread]).contains(where: { $0.entityID()  == thread.entityID() })
-                        {
-                            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-                        }
-                    }
-                }
-                
-                // Move thread to top
-                self?.reloadData()
-            })
-        }))
-        notificationList.add(nc.addObserver(forName: NSNotification.Name(rawValue: bNotificationMessageRemoved), object: nil, queue: nil, using: { notification in
-            DispatchQueue.main.async(execute: {
-                self.reloadData()
-            })
-        }))
-        notificationList.add(nc.addObserver(forName: NSNotification.Name(rawValue: bNotificationUserUpdated), object: nil, queue: nil, using: { notification in
-            DispatchQueue.main.async(execute: {
-                self.reloadData()
-            })
-        }))
-        
-        internetConnectionHook = BHook({ [weak self] data in
-            self?.updateButtonStatusForInternetConnection()
-        })
-        BChatSDK.hook().add(internetConnectionHook, withName: bHookInternetConnectivityChanged)
-        
-        notificationList.add(nc.addObserver(forName: NSNotification.Name(rawValue: bNotificationTypingStateChanged), object: nil, queue: nil, using: { [weak self]  notification in
-            DispatchQueue.main.async(execute: {
-                let thread = notification.userInfo?[bNotificationTypingStateChangedKeyThread] as? PThread
-                if let entityID = thread?.entityID {
-                    self?._threadTypingMessages[entityID] = notification.userInfo?[bNotificationTypingStateChangedKeyMessage]
-                }
-                self?.reloadData()
-            })
-        }))
-        notificationList.add(nc.addObserver(forName: NSNotification.Name(rawValue: bNotificationThreadDeleted), object: nil, queue: nil, using: { [weak self] notification in
-            DispatchQueue.main.async(execute: {
-                self?.reloadData()
-            })
-        }))
-        
-    }
-    
     override func createThread() {
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addObservers()
         tableView.isUserInteractionEnabled = true
         reloadData()
     }
