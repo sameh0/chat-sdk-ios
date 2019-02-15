@@ -32,23 +32,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NM.moderation().on()
 
         let block = BChatSDK.auth()?.authenticateWithCachedToken()?.thenOnMain
-        
+
         _ = block?({(result: Any?) -> Any? in
+            
+            BChatSDK.shared()?.interfaceManager = CustomAdapter()
             self.window = UIWindow(frame: UIScreen.main.bounds)
-            self.window?.rootViewController = BChatSDK.ui()?.privateThreadsViewController()
+            self.window?.rootViewController = UINavigationController(rootViewController: (BChatSDK.ui()?.privateThreadsViewController())!)
             self.window?.makeKeyAndVisible()
             
             return result
         }, {(error: Error?) -> Any? in
+            
             
             print(error)
             
             return error
         })
 
-        BChatSDK.shared()?.interfaceManager = CustomAdapter()
-        
-   
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        self.window?.rootViewController = BChatSDK.ui()?.appTabBarViewController()
+//        self.window?.makeKeyAndVisible()
         
 
         

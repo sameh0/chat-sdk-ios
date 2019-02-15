@@ -29,7 +29,7 @@
         <!--Item 1-->
         <scene sceneID="gQE-Tg-e7l">
             <objects>
-                <viewController id="TlZ-zy-gPB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatVC" id="TlZ-zy-gPB" customClass="ChatVC" customModule="ChatSDKSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wkw-e9-7ar">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
